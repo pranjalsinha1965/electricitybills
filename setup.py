@@ -1,8 +1,8 @@
+# importing from libraries 
 from setuptools import find_packages, setup 
 from typing import List 
 
 HYPHEN_E_DOT_REQUIREMENT = '-e .'
-
 
 def get_requirements(file_path: str) -> List[str]:
     requirements = []
@@ -23,5 +23,5 @@ setup(
     author = "Western", 
     author_mail = "pranjalsinha1965@gmail.com", 
     packages = find_packages(), 
-    install_requirements = get_requirements('requirements.txt')
+    install_requires = get_requirements('requirements.txt')
 )
