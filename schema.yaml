@@ -1,5 +1,3 @@
-key: value 
-
 COLUMNS:           
   Fan              : int64  
   Refrigerator     : float64
