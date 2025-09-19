@@ -10,6 +10,7 @@ from src.ElectricityBill.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH, SC
 from src.ElectricityBill.utils.commons import read_yaml, create_directories, get_size
 from src.ElectricityBill import logging
 
+
 # Entity
 # Define the structure of data ingestion configuration 
 @dataclass
@@ -19,6 +20,7 @@ class DataIngestionConfig:
     source_URL: str
     local_data_file: Path
     unzip_dir: Path 
+
 
 # Create a configuration manager class to manage the configurations 
 class ConfigurationManager:
@@ -108,6 +110,7 @@ if __name__=="__main__":
         raise e
              
             
+
 
 
 
