@@ -33,5 +33,7 @@ model_trainer:
   train_data_path: artifacts/data_transformation/X_train_transformed.joblib
   test_data_path: artifacts/data_transformation/X_test_tranformed.joblib 
   model_name: model.joblib 
+
+  
   
   

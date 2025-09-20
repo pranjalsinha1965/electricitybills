@@ -2,7 +2,7 @@ from src.ElectricityBill.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH, SC
 from src.ElectricityBill.utils.commons import read_yaml, create_directories, get_size
 from pathlib import Path 
 from src.ElectricityBill.entity.configuration_entity import (DataIngestionConfig, 
-                                                             DataValidationConfig, DataTransformationConfig) 
+                                                             DataValidationConfig, DataTransformationConfig, ModelTrainerConfig) 
 
 
 # Create a configuration manager class to manage the configurations 
@@ -70,3 +70,28 @@ class ConfigurationManager:
             categorical_cols= list(config.categorical_cols)
         )
         return data_transformation_config
+
+# Model Trainer Config  
+    def get_model_trainer_config(self) ->ModelTrainerConfig:
+        # Get the model trainer configuration 
+        config = self.config.model_trainer
+        params = self.params.DecisionTreeRegressor
+        #schema = self.schema.TARGET_COLUMN
+
+        create_directories([config.root_dir])
+        
+        # Create and return the Model Trainer Config object
+        model_trainer_config = ModelTrainerConfig(
+            root_dir = config.root_dir,
+            train_data_path = config.train_data_path,
+            test_data_path = config.test_data_path,
+            model_name = config.model_name,
+            criterion = params.criterion,
+            splitter = params.splitter,
+            min_sample_split = params.min_sample_split,
+            min_samples_leaf = params.min_samples_leaf,
+            min_impurity_decrease = params.min_impurity_decrease,
+            ccp_alpha = params.ccp_alpha,
+        )
+
+        return model_trainer_config
