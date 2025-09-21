@@ -28,7 +28,7 @@ class PredictionPipeline:
             model = load_object(file_path=model_path)
 
             # Transform the features 
-            features_transformed = preprocessor_obj.transformed(features)
+            features_transformed = preprocessor_obj.transform(features)
             # Make the predictions 
             predictions = model.predict(features_transformed)
 
@@ -44,18 +44,12 @@ class CustomData:
         # Initiate the attributes using kwargs
         for key, value in kwargs.items(): 
             setattr(self, key, value)
-
-        # Define a method to convert data object to a dataframe 
-        def get_data_as_dataframe(self): 
-            try: 
-                # log message 
-                logging.info("Converting data object to a dataframe")
-                # convert the data object to a dataframe 
-                data_dict = {key: [getattr(self, key)] for key in vars(self)}
-
-                # convert the dictionary to dataframe in the return 
-                return pd.DataFrame(data_dict)
-            
-            except Exception as e: 
-                raise FileOperatorError(e, sys)
+    
+    def get_data_as_dataframe(self):
+        try:
+            logging.info("Converting data object to a dataframe")
+            data_dict = {key: [getattr(self, key)] for key in vars(self)}
+            return pd.DataFrame(data_dict)
+        except Exception as e:
+            raise FileOperatorError(e, sys)
             
