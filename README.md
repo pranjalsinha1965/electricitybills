@@ -7,17 +7,25 @@ This project implements an end-to-end MLOps pipeline for predicting monthly elec
 ## The project covers:
 
 **1 .Data Ingestion** – Download/unzip raw datasets, save artifacts
+
 **2. Data Validation** – Schema checks, column validation, logging
+
 **3. Data Transformation** – Preprocessing with pipelines (scaling, encoding)
+
 **4. Model Training** – ML models (Decision Tree, XGBoost) with evaluation
+
 **5. Prediction Pipeline** – Load trained model & make predictions
+
 **6. Logging & Exception Handling** – Centralized error handling with FileOperatorError
 
 ## 🛠 Tech Stack
 
 **Language**: Python 3.11 (Conda environment)
+
 **Libraries**: pandas, numpy, scikit-learn, xgboost, joblib, PyYAML, python-box
+
 **MLOps Practices**: modular pipeline, config-driven YAMLs, artifacts tracking, logging
+
 **Environment Management**: Miniconda
 
 ## 📂 Project Structure
@@ -52,3 +60,152 @@ Electricity-Bill-Predictor/
 └── README.md                  # Project documentation
 
 ```
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Create Conda Environment
+
+```bash 
+cd "C:\Users\KIIT\Desktop\Data - Science\Electricity-Bill-Predictor"
+
+# Create and activate environment
+conda create -n elec_bill python=3.11 -y
+conda activate elec_bill
+
+```
+
+### 2️⃣ Install Dependencies
+
+```bash 
+pip install -r requirements.txt
+
+```
+
+(or manually)
+
+```bash 
+pip install pandas numpy scikit-learn xgboost joblib pyyaml python-box notebook
+
+```
+
+### 3️⃣ Run Individual Pipelines
+
+```bash 
+# Data ingestion
+python -m src.components.data_ingestion
+
+# Data transformation
+python -m src.components.data_transformation
+
+# Full orchestrator
+python main.py
+
+```
+
+### 4️⃣ Run Jupyter Notebook 
+
+``` bash 
+pip install notebook
+python -m notebook
+
+```
+
+## 📊 Dataset
+
+**Source**: Electricity consumption dataset (CSV/ZIP)
+
+**Columns**:
+
+    - Numerical: Fan, Refrigerator, AirConditioner, Television, Monitor, MotorPump, Month, MonthlyHours, TariffRate
+
+    - Categorical: City, Company
+
+    - Target: ElectricityBill
+
+## 🏗 Pipeline Flow
+
+**1. Data Ingestion** → downloads & stores dataset into artifacts/data_ingestion
+
+**2. Data Validation** → checks schema, validates columns, writes status in artifacts/data_validation/status.txt
+
+**3. Data Transformation** → applies preprocessing (scaling & encoding), saves preprocessor object (preprocessor.joblib)
+
+**4. Model Training** → trains ML models, stores trained model in artifacts/model_trainer/model.joblib
+
+**5. Prediction Pipeline** → loads saved model & predicts electricity bill
+
+## 📈 Model Evaluation Metrics
+
+1. The pipeline evaluates models using:
+
+2. Mean Absolute Error (MAE)
+
+3. Mean Squared Error (MSE)
+
+4. Root Mean Squared Error (RMSE)
+
+5. Mean Absolute Percentage Error (MAPE)
+
+6. R² Score
+
+## 🚀 Quick Start Examples
+
+**🔹 Train the Model**
+
+```bash 
+from joblib import load
+from src.ElectricityBill.components.c_04_model_trainer import ModelTrainer
+from src.ElectricityBill.config.configuration import ConfigurationManager
+
+# Load configuration
+config = ConfigurationManager().get_model_trainer_config()
+
+# Initialize trainer
+trainer = ModelTrainer(config)
+
+# Train and save model
+metrics = trainer.train()
+print("Training Metrics:", metrics)
+
+```
+
+**🔹 Make Predictions**
+
+``` bash 
+import pandas as pd
+import joblib
+
+# Load preprocessor and model
+preprocessor = joblib.load("artifacts/data_transformation/preprocessor.joblib")
+model = joblib.load("artifacts/model_trainer/model.joblib")
+
+# Sample input data
+sample = pd.DataFrame([{
+    "Fan": 5,
+    "Refrigerator": 2,
+    "AirConditioner": 1,
+    "Television": 2,
+    "Monitor": 1,
+    "MotorPump": 0,
+    "Month": 8,
+    "City": "Mumbai",
+    "Company": "Tata Power Company Ltd.",
+    "MonthlyHours": 350,
+    "TariffRate": 8.5
+}])
+
+# Transform input
+X_sample = preprocessor.transform(sample)
+
+# Predict bill
+prediction = model.predict(X_sample)
+print("Predicted Electricity Bill:", prediction[0])
+
+```
+## 🚀 Future Improvements
+
+1. Add CI/CD with GitHub Actions
+
+2. Deploy with FastAPI/Flask + Docker
+
+3. Integrate experiment tracking with MLflow/DVC
