@@ -204,11 +204,18 @@ print("Predicted Electricity Bill:", prediction[0])
 ```
 ## 🚀 Future Improvements
 
-1. Add CI/CD with GitHub Actions
+1. **Implement CI/CD Pipelines**
+   - Automate build, testing, and deployment workflows using **GitHub Actions**.
 
-2. Deploy with FastAPI/Flask + Docker
+2. **Containerization & Deployment**
+   - Deploy the application using **FastAPI/Flask** with **Docker** for scalable and portable deployments.
 
-3. Integrate experiment tracking with MLflow/DVC
+3. **Experiment Tracking & Model Versioning**
+   - Integrate **MLflow** or **DVC (Data Version Control)** for experiment tracking, model versioning, and reproducible machine learning workflows.
 
-4. Further future based automation automation for createing MLOps Pipeline with IoT & OCR-Driven Energy Invoice Automation is present in this github repository only:
-   Link: https://github.com/pranjalsinha1965/webhook-implementation
+4. **Advanced MLOps Automation**
+   - Extend the project into a fully automated **MLOps pipeline** by integrating **IoT-enabled OCR-Driven Energy Invoice Automation**, including automated data ingestion, OCR processing, model retraining, deployment, and monitoring.
+
+   > **Related Repository:**  
+   > **IoT & OCR-Driven Energy Invoice Automation**  
+   > GitHub: <https://github.com/pranjalsinha1965/webhook-implementation>
